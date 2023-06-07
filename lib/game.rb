@@ -3,10 +3,14 @@ module IMICTDS
     SIMULATION_INTERVAL = 1.0 / 128 # 120 "ticks" per second
     DEATH_SPIRAL_MAX_FRAME_TIME = 0.25 # seconds
 
+    attr_reader :time
+
     def initialize(map:, game_mode:)
       @map = map
       @game_mode = game_mode
 
+      # NOTE: This is the ONLY source of time for the WHOLE game,
+      #       Using Gosu.milliseconds directly WILL break replays and otherwise lead to sadness.
       @time = 0.0
       @accumulator = 0.0
       @alpha = 0.0
