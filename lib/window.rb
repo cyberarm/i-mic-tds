@@ -7,7 +7,7 @@ module IMICTDS
       self.show_stats_plotter = false
       self.show_cursor = true
 
-      push_state(CyberarmEngine::IntroState, forward: States::Boot, forward_options: { forward: States::MainMenu })
+      push_state(CyberarmEngine::IntroState, forward: States::Boot, forward_options: {forward: States::MainMenu})
     end
 
     def needs_redraw?

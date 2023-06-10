@@ -38,7 +38,6 @@ module IMICTDS
 
     # NOTE: {dt} MUST be a static value
     def simulate(dt)
-
     end
   end
 end

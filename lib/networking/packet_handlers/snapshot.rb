@@ -1,7 +1,6 @@
 module IMICTDS
   module Networking
     module PacketHandlers
-
       # Handles encoding/decoding of Server game state (snapshot)
       class Snapshot < PacketHandler
         TYPE = 0xff
