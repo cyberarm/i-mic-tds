@@ -1,4 +1,10 @@
+module IMICTDS
+  DEVELOPMENT_MODE = ARGV.join.include?("--dev")
+end
+
 require "digest/crc"
+
+# TODO: Require CyberarmEngine::Vector and supporting classes for headless server
 
 require_relative "version"
 
