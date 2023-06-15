@@ -1,5 +1,6 @@
 module IMICTDS
   DEVELOPMENT_MODE = ARGV.join.include?("--dev")
+  ROOT_PATH = File.expand_path("..", __dir__)
 end
 
 require "digest/crc"
