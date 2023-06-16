@@ -9,8 +9,10 @@ module IMICTDS
           button "PLAY", width: 1.0 do
             push_state(States::ServerBrowser)
           end
-          button "PROFILE", width: 1.0
-          button "SETTINGS", width: 1.0
+          button "SETTINGS", width: 1.0 do
+            push_state(States::SettingsMenu)
+          end
+
           button "EXIT", margin_top: 32, width: 1.0 do
             close
           end

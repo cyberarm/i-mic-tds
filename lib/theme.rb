@@ -27,6 +27,10 @@ module IMICTDS
       image_height: 1.0,
       height: 1.0,
       min_width: nil
+    },
+    Handle: {
+      width: 48,
+      min_width: nil
     }
   }
 end

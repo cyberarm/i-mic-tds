@@ -13,9 +13,9 @@ module IMICTDS
             flow(width: 1.0, height: 28, padding: 8) do
               background i.even? ? 0 : 0xaa_454545
 
-              caption "0" * 48, width: 536, text_wrap: :none
-              caption ["Capture the Flag", "Team Deathmatch", "Detonation"].sample, fill: true
-              caption "00/00"
+              caption "0" * 48, width: 536, text_wrap: :none, margin_right: 8
+              caption ["Capture the Flag", "Team Deathmatch", "Detonation", "King of the Hill", "All Modes (CTF)", "All Modes (TDM)", "All Modes (DEMO)", "All Modes (KotH)"].sample, fill: true, margin_left: 8, margin_right: 8, text_wrap: :none
+              caption "#{rand(0..16)}/16", margin_left: 8, margin_right: 8, text_wrap: :none
               image get_image("#{ROOT_PATH}/assets/ui_icons/signal3.png"), height: 1.0, color: 0xff_008000, tip: "8888ms"
               button get_image("#{ROOT_PATH}/assets/ui_icons/arrowRight.png"), image_height: 1.0, padding_top: 2, padding_bottom: 2, min_width: nil
             end
@@ -23,7 +23,7 @@ module IMICTDS
         end
 
         flow(width: 1.0, max_width: 900, height: 40, padding: 4, h_align: :center) do
-          button "Back", height: 1.0 do
+          button "BACK", height: 1.0 do
             pop_state
           end
 
@@ -34,7 +34,7 @@ module IMICTDS
 
           flow(fill: true)
 
-          button "Host Game", height: 1.0 do
+          button "HOST GAME", height: 1.0 do
             push_state(States::HostGame)
           end
         end
