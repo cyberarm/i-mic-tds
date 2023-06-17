@@ -15,4 +15,7 @@ require_relative "lib/states/menus/settings_menu"
 require_relative "lib/states/menus/server_browser"
 require_relative "lib/states/menus/host_game"
 
+require_relative "lib/map_editor/states/main_menu"
+require_relative "lib/map_editor/states/editor"
+
 IMICTDS::Window.new(width: 1280, height: 720, resizable: true).show

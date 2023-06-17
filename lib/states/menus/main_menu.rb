@@ -12,6 +12,9 @@ module IMICTDS
           button "SETTINGS", width: 1.0 do
             push_state(States::SettingsMenu)
           end
+          button "MAP EDITOR", width: 1.0 do
+            push_state(MapEditor::States::MainMenu)
+          end
 
           button "EXIT", margin_top: 32, width: 1.0 do
             close
