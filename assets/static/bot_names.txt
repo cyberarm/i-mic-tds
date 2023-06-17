@@ -1,0 +1,34 @@
+# (Select) Greek Letters
+Alpha
+Beta
+Gamma
+Delta
+Epsilon
+Zeta
+Theta
+Kappa
+Lambda
+Omicron
+Sigma
+Tau
+Upsilon
+Phi
+Chi
+Omega
+
+# Myths and Legends
+Apollo
+Artemis
+Athena
+Demeter
+Persephone
+
+Atlas
+Prometheus
+Phoebe
+Helios
+
+# Commemorative Handles
+@_why
+@jimweirich
+@ChrisGSeaton
