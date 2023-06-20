@@ -27,6 +27,8 @@ require_relative "networking/packet_handler"
 require_relative "networking/packet_handlers/input"
 
 require_relative "game"
+require_relative "map"
+require_relative "polygon"
 
 require_relative "game_mode"
 require_relative "game_modes/bomb_detonation"

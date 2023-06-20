@@ -5,18 +5,21 @@ module IMICTDS
         def setup
           theme(THEME)
 
-          flow(width: 1.0, height: 1.0) do
-            stack(max_width: 384, width: 1.0, height: 1.0, padding: 32, background: 0xdd_b5835a, border_thickness: 2, border_color: 0xaa_252525, scroll: true) do
+          stack(max_width: 384, width: 1.0, height: 1.0, background: 0xdd_b5835a, border_thickness: 2, border_color: 0xaa_252525) do
 
-              banner "Map Editor", width: 1.0, text_align: :center
-              flow(width: 1.0, height: 40, border_thickness: 2, border_color: 0xaa_252525, margin_bottom: 32, padding: 4) do
-                title "MAP_NAME_HERE", fill: true, word_wrap: :none
-
-                button get_image("#{ROOT_PATH}/assets/ui_icons/save.png"), image_height: 1.0, min_width: nil
-                button get_image("#{ROOT_PATH}/assets/ui_icons/wrench.png"), image_height: 1.0, min_width: nil
-                button get_image("#{ROOT_PATH}/assets/ui_icons/trashCan.png"), image_height: 1.0, min_width: nil
+            banner "Map Editor", width: 1.0, text_align: :center, margin_top: 32
+            flow(width: 1.0, height: 40, border_thickness: 2, border_color: 0xaa_252525, margin_left: 32, margin_right: 32, padding: 4) do
+              button get_image("#{ROOT_PATH}/assets/ui_icons/exit.png"), image_height: 1.0, min_width: nil, tip: "Save map and close editor" do
+                pop_state
               end
 
+              edit_line "MAP_NAME_HERE", fill: true, height: 1.0
+
+              button get_image("#{ROOT_PATH}/assets/ui_icons/save.png"), image_height: 1.0, min_width: nil, tip: "Save map"
+              button get_image("#{ROOT_PATH}/assets/ui_icons/right.png"), image_height: 1.0, min_width: nil, tip: "Test map"
+            end
+
+            stack(width: 1.0, fill: true, padding: 32, scroll: true) do
               title "Play Space", width: 1.0, text_align: :center, tip: "Closed polygon defining the play area"
               flow(width: 1.0, height: 40, border_thickness: 2, border_color: 0xaa_252525, margin_bottom: 32, padding: 4) do
                 button get_image("#{ROOT_PATH}/assets/ui_icons/wrench.png"), image_height: 1.0, min_width: nil
@@ -24,7 +27,7 @@ module IMICTDS
                 button get_image("#{ROOT_PATH}/assets/ui_icons/trashCan.png"), image_height: 1.0, min_width: nil
               end
 
-              title "Obstructions", width: 1.0, text_align: :center, tip: "Closed polygon that obstruct the play space"
+              title "Obstructions", width: 1.0, text_align: :center, tip: "Closed polygons that obstruct the play space"
               stack(width: 1.0, border_thickness: 2, border_color: 0xaa_252525, margin_bottom: 32) do
                 10.times do |i|
                   flow(width: 1.0, height: 40, padding: 4) do
@@ -75,13 +78,50 @@ module IMICTDS
                 end
               end
             end
-
-            flow(fill: true)
           end
+
+          @map = Map.new
+          @map.edit_mode = true
+
+          @polygon = Polygon.new(
+            [
+              CyberarmEngine::Vector.new(window.width / 2 - 100, window.height / 2 - 100),
+              CyberarmEngine::Vector.new(window.width / 2, window.height / 2 - 100),
+              CyberarmEngine::Vector.new(window.width / 2, window.height / 2 - 50),
+              CyberarmEngine::Vector.new(window.width / 2 + 100, window.height / 2 - 50),
+              CyberarmEngine::Vector.new(window.width / 2 + 100, window.height / 2 + 100),
+              CyberarmEngine::Vector.new(window.width / 2 - 100, window.height / 2 - 100)
+            ],
+            121,
+            Gosu::Color.new(0xaa_aaaaaa),
+            Gosu::Color::GREEN,
+            4
+          )
         end
 
         def draw
-          Gosu.draw_rect(0, 0, window.width, window.height, 0xff_252525)
+          @map.draw
+          @polygon.draw
+
+          Gosu.flush
+
+          super
+        end
+
+        def update
+          @map.update
+
+          super
+        end
+
+        def button_down(id)
+          @map.button_down(id)
+
+          super
+        end
+
+        def button_up(id)
+          @map.button_up(id)
 
           super
         end
