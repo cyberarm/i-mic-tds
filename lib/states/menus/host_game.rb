@@ -36,7 +36,7 @@ module IMICTDS
 
           flow(width: 1.0, height: 40, margin_top: 4) do
             tagline "Network", width: 156
-            list_box items: ["Internet", "LAN", "WAN"], choose: "Internet", fill: true
+            list_box items: ["Hosted", "LAN", "Internet"], choose: "Hosted", fill: true
           end
 
           tagline "Bots", margin_top: 16

@@ -10,7 +10,7 @@ module IMICTDS
             button "CREATE", width: 1.0 do
               push_state(States::Editor)
             end
-            button "EDIT", width: 1.0 do
+            button "EDIT", width: 1.0, enabled: false do
               push_state(States::MapList)
             end
 

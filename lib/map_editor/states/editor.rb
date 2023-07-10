@@ -5,6 +5,11 @@ module IMICTDS
         def setup
           theme(THEME)
 
+          t = Gosu.milliseconds
+          @server = IMICTDS::Networking::Server.new(host: "localhost", port: 56789, channels: 8, map: nil, game_mode: :edit)
+          @client = IMICTDS::Networking::Client.new(host: "localhost", port: 56789, channels: 8)
+          @client.connect(0)
+
           stack(max_width: 384, width: 1.0, height: 1.0, background: 0xdd_b5835a, border_thickness: 2, border_color: 0xaa_252525) do
 
             banner "Map Editor", width: 1.0, text_align: :center, margin_top: 32
@@ -109,6 +114,9 @@ module IMICTDS
         end
 
         def update
+          @server.think
+          @client.think
+
           @map.update
 
           super

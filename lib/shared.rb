@@ -3,6 +3,8 @@ module IMICTDS
   ROOT_PATH = File.expand_path("..", __dir__)
 end
 
+require "ffi-enet"
+require "ffi-enet/renet"
 require "digest/crc"
 
 # TODO: Require CyberarmEngine::Vector and supporting classes for headless server
@@ -22,7 +24,7 @@ require_relative "ecs/prefabs"
 
 require_relative "networking/packet"
 require_relative "networking/server"
-require_relative "networking/connection"
+require_relative "networking/client"
 require_relative "networking/packet_handler"
 require_relative "networking/packet_handlers/input"
 
