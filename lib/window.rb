@@ -3,7 +3,7 @@ module IMICTDS
     def setup
       self.caption = format("%s (v%s) [%s]", NAME, VERSION, VERSION_NAME)
 
-      self.update_interval = 60 / 1.0 # Only limited by v-sync
+      self.update_interval = 0.001 / 60 # Only limited by v-sync
       self.show_stats_plotter = false
       self.show_cursor = true
 
