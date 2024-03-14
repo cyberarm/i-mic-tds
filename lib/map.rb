@@ -42,21 +42,21 @@ module IMICTDS
           @entities.each(&:draw)
         end
 
+        return unless edit_mode?
+
         # Map grid
-        if edit_mode?
-          y_start = ((@offset.y).clamp(0, @map_size) / @grid_size).round
-          y_end = ((@offset.y + window.height).clamp(0, @map_size) / @grid_size).round
+        y_start = ((@offset.y).clamp(0, @map_size) / @grid_size).round
+        y_end = ((@offset.y + window.height).clamp(0, @map_size) / @grid_size).round
 
-          x_start = ((@offset.x).clamp(0, @map_size) / @grid_size).round
-          x_end = ((@offset.x + window.width).clamp(0, @map_size) / @grid_size).round
+        x_start = ((@offset.x).clamp(0, @map_size) / @grid_size).round
+        x_end = ((@offset.x + window.width).clamp(0, @map_size) / @grid_size).round
 
-          (y_start..y_end).each do |y|
-            y = y * @grid_size
-            (x_start..x_end).each do |x|
-              x = x * @grid_size
+        (y_start..y_end).each do |y|
+          y = y * @grid_size
+          (x_start..x_end).each do |x|
+            x = x * @grid_size
 
-              Gosu.draw_circle(x, y, 4, 9, mouse_near?(x, y, 10.0) ? 0xaa_ffffff : 0xaa_000000, 100)
-            end
+            Gosu.draw_circle(x, y, 4, 9, mouse_near?(x, y, 10.0) ? 0xaa_ffffff : 0xaa_000000, 100)
           end
         end
       end

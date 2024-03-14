@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/cyberarm/ffi-enet.git
-  revision: ed4e05fc4ceb7ba57d489556b0dc7e57a6cf10a4
+  revision: 3a695ca3a323e70af79e96ca3f389e618c5b6d2c
   specs:
     ffi-enet (0.1.0)
       ffi (~> 1.15)
@@ -8,17 +8,13 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    cyberarm_engine (0.23.0)
-      excon (~> 0.88)
+    cyberarm_engine (0.24.4)
       gosu (~> 1.1)
-      gosu_more_drawables (~> 0.3)
-    digest-crc (0.6.4)
+    digest-crc (0.6.5)
       rake (>= 12.0.0, < 14.0.0)
-    excon (0.99.0)
-    ffi (1.15.5)
+    ffi (1.16.3)
     gosu (1.4.6)
-    gosu_more_drawables (0.3.1)
-    rake (13.0.6)
+    rake (13.1.0)
 
 PLATFORMS
   x64-mingw-ucrt

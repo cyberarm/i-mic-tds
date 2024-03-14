@@ -21,6 +21,12 @@ module IMICTDS
           push_state(@options[:forward])
         end
       end
+
+      def button_down(id)
+        super
+
+        @start_time = -2_500
+      end
     end
   end
 end
