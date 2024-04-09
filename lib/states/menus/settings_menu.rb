@@ -26,8 +26,8 @@ module IMICTDS
                   @bold_font_example.style.default[:font] = "#{ROOT_PATH}/assets/fonts/noto_sans/NotoSans-Black.ttf"
                   @font_example.style.default[:font] = "#{ROOT_PATH}/assets/fonts/noto_sans/NotoSans-Bold.ttf"
                 when :JetbrainsMono
-                  @bold_font_example.style.default[:font] = "#{ROOT_PATH}/assets/fonts/jetbrains_mono/JetbrainsMono-ExtraBold.ttf"
-                  @font_example.style.default[:font] = "#{ROOT_PATH}/assets/fonts/jetbrains_mono/JetbrainsMono-Bold.ttf"
+                  @bold_font_example.style.default[:font] = "#{ROOT_PATH}/assets/fonts/jetbrains_mono/JetBrainsMono-ExtraBold.ttf"
+                  @font_example.style.default[:font] = "#{ROOT_PATH}/assets/fonts/jetbrains_mono/JetBrainsMono-Bold.ttf"
                 when :OpenDyslexic
                   @bold_font_example.style.default[:font] = "#{ROOT_PATH}/assets/fonts/open_dyslexic/OpenDyslexic-Bold.otf"
                   @font_example.style.default[:font] = "#{ROOT_PATH}/assets/fonts/open_dyslexic/OpenDyslexic-Regular.otf"

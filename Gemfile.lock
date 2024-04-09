@@ -14,7 +14,7 @@ GEM
       rake (>= 12.0.0, < 14.0.0)
     ffi (1.16.3)
     gosu (1.4.6)
-    rake (13.1.0)
+    rake (13.2.1)
 
 PLATFORMS
   x64-mingw-ucrt
@@ -26,4 +26,4 @@ DEPENDENCIES
   ffi-enet!
 
 BUNDLED WITH
-   2.4.13
+   2.5.7
