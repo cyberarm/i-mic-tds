@@ -1,10 +1,23 @@
 module IMICTDS
   DEVELOPMENT_MODE = ARGV.join.include?("--dev")
+  DEBUG_QUICKPLAY = ARGV.join.include?("--debug-quickplay")
   ROOT_PATH = File.expand_path("..", __dir__)
+
+  module Networking
+    DEFAULT_MAX_CLIENTS = 16
+    DEFAULT_CHANNEL_COUNT = 8
+
+    DEFAULT_PORT = 56789
+  end
 end
 
-require "ffi-enet"
-require "ffi-enet/renet"
+if IMICTDS::DEVELOPMENT_MODE || IMICTDS::DEBUG_QUICKPLAY
+  require_relative "../../ffi-enet/lib/ffi-enet"
+  require_relative "../../ffi-enet/lib/ffi-enet/renet"
+else
+  require "ffi-enet"
+  require "ffi-enet/renet"
+end
 require "digest/crc"
 
 # TODO: Require CyberarmEngine::Vector and supporting classes for headless server
@@ -24,7 +37,7 @@ require_relative "ecs/prefabs"
 
 require_relative "networking/packet"
 require_relative "networking/server"
-require_relative "networking/client"
+require_relative "networking/connection"
 require_relative "networking/packet_handler"
 require_relative "networking/packet_handlers/input"
 

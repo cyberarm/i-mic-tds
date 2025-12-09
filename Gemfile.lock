@@ -8,13 +8,14 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    cyberarm_engine (0.24.4)
+    cyberarm_engine (0.24.5)
       gosu (~> 1.1)
-    digest-crc (0.6.5)
+    digest-crc (0.7.0)
       rake (>= 12.0.0, < 14.0.0)
-    ffi (1.16.3)
+    ffi (1.17.2-x64-mingw-ucrt)
+    ffi (1.17.2-x86_64-linux-gnu)
     gosu (1.4.6)
-    rake (13.2.1)
+    rake (13.3.1)
 
 PLATFORMS
   x64-mingw-ucrt
@@ -26,4 +27,4 @@ DEPENDENCIES
   ffi-enet!
 
 BUNDLED WITH
-   2.5.7
+   2.6.9

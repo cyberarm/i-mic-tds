@@ -7,7 +7,7 @@ module IMICTDS
       MAGICAL_PREFIX = [PROTOCOL_IDENTIFIER.bytes, PROTOCOL_VERSION].flatten.pack("C4n")
 
       def self.crc32(data)
-        Digest::CRC32.new("#{MAGICAL_PREFIX}#{data}")
+        Digest::CRC32.hexdigest("#{MAGICAL_PREFIX}#{data}")
       end
 
       def self.verify_crc32(crc, data)

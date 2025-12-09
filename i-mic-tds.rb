@@ -14,6 +14,8 @@ require_relative "lib/states/menus/main_menu"
 require_relative "lib/states/menus/settings_menu"
 require_relative "lib/states/menus/server_browser"
 require_relative "lib/states/menus/host_game"
+require_relative "lib/states/menus/connecting"
+require_relative "lib/states/play"
 
 require_relative "lib/map_editor/states/main_menu"
 require_relative "lib/map_editor/states/editor"

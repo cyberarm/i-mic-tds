@@ -1,13 +1,16 @@
 module IMICTDS
   class Game
-    SIMULATION_INTERVAL = 1.0 / 128 # 120 "ticks" per second
+    SIMULATION_INTERVAL = 1.0 / 128 # 128 "ticks" per second
     DEATH_SPIRAL_MAX_FRAME_TIME = 0.25 # seconds
 
+    attr_reader :entity_store, :map, :game_mode, :game_master
     attr_reader :time
 
-    def initialize(map:, game_mode:)
+    def initialize(map:, game_mode:, game_master:)
+      @entity_store = EntityStore.new
       @map = map
       @game_mode = game_mode
+      @game_master = game_master
 
       # NOTE: This is the ONLY source of time for the WHOLE game,
       #       Using Gosu.milliseconds directly WILL break replays and otherwise lead to sadness.
