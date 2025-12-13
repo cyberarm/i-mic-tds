@@ -26,7 +26,7 @@ module IMICTDS
 
           flow(width: 1.0, height: 40, margin_top: 4) do
             tagline "Game Mode", width: 156
-            list_box items: [ "Team Deathmatch", "Capture the Flag", "Demolition", "King of the Hill", "All Modes" ], choose: "All Modes", fill: true
+            list_box items: [ "Team Deathmatch", "Capture the Flag", "Bomb Detonation", "King of the Hill", "All Modes" ], choose: "All Modes", fill: true
           end
 
           flow(width: 1.0, height: 40, margin_top: 4) do
