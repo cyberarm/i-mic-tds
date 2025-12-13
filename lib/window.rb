@@ -16,6 +16,7 @@ module IMICTDS
       if DEVELOPMENT_MODE
         push_state(States::MainMenu)
       elsif DEBUG_QUICKPLAY
+        @game = Game.new(map: nil, game_mode: nil, game_master: nil)
         start_listen_server(host: "localhost", port: IMICTDS::Networking::DEFAULT_PORT)
         push_state(States::Connecting, host: "localhost", port: IMICTDS::Networking::DEFAULT_PORT)
       else

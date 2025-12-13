@@ -7,7 +7,7 @@ module IMICTDS
     attr_reader :time
 
     def initialize(map:, game_mode:, game_master:)
-      @entity_store = EntityStore.new
+      @entity_store = ECS::EntityStore.new
       @map = map
       @game_mode = game_mode
       @game_master = game_master

@@ -16,7 +16,8 @@ module IMICTDS
 
       def think
         # TODO: "drain" queued packets instead of only taking one
-        update(0)
+        while (update(0) > 0)
+        end
 
         # TODO: Advertise server on LAN via multicast
         # REF: https://github.com/jpignata/blog/blob/master/articles/multicast-in-ruby.md
@@ -26,8 +27,6 @@ module IMICTDS
 
       # Run ta sim-u-late-ion
       def simulate
-        return unless Gosu.milliseconds % 1000
-
         t = Gosu.milliseconds
         broadcast_packet("#{Packet.crc32(t.to_s)}#{t}", reliable: true, channel: 0)
       end

@@ -3,7 +3,8 @@ module IMICTDS
     class Connection < ENet::Connection
       def think
         # TODO: "drain" queued packets instead of only taking one
-        update(0)
+        while (update(0) > 0)
+        end
       end
 
       def on_connection
@@ -11,7 +12,8 @@ module IMICTDS
       end
 
       def on_packet_received(data, channel)
-        pp [data, channel]
+        # pp [data, channel]
+        send_packet(data, channel: channel, reliable: true)
 
         # Require CRC32 and packet type
         return if data.length < 5
