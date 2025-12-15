@@ -5,7 +5,7 @@ module IMICTDS
     attr_reader :play_area, :obstructions, :entities, :grid_size
     attr_accessor :edit_mode, :offset, :zoom, :min_zoom, :max_zoom
 
-    def initialize(map_file: nil)
+    def initialize
       @palette = :default
       @play_area = []
       @obstructions = []
@@ -20,6 +20,12 @@ module IMICTDS
       @zoom_step = 0.25
 
       @edit_mode = false
+    end
+
+    def load(map_file:)
+    end
+
+    def save(map_file:)
     end
 
     def edit_mode?

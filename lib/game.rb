@@ -20,10 +20,12 @@ module IMICTDS
     end
 
     # Fix Your Timestep!: https://gafferongames.com/post/fix_your_timestep/
-    def update(inputs)
+    def update(simulation_callback: nil)
       # Handle player inputs
       # Simulate game using fixed timestep
 
+      # FIXME: DO NOT USE Gosu.milliseconds as a time reference!
+      #        as server will not have Gosu available.
       frame_time = CyberarmEngine::Window.dt
       frame_time = DEATH_SPIRAL_MAX_FRAME_TIME if frame_time > DEATH_SPIRAL_MAX_FRAME_TIME
 
@@ -31,6 +33,8 @@ module IMICTDS
 
       while @accumulator >= SIMULATION_INTERVAL
         simulate(SIMULATION_INTERVAL)
+        # callback to call AFTER the simulation has been simulated
+        simulation_callback&.call
 
         @time += SIMULATION_INTERVAL
         @accumulator -= SIMULATION_INTERVAL
@@ -39,6 +43,7 @@ module IMICTDS
       @alpha = @accumulator / SIMULATION_INTERVAL
     end
 
+    # Run ta sim-u-late-ion
     # NOTE: {dt} MUST be a static value
     def simulate(dt)
     end

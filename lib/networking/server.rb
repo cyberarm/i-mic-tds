@@ -9,26 +9,28 @@ module IMICTDS
 
         @config = config
 
+        @game = Game.new(map: nil, game_mode: nil, game_master: nil)
+
         # @map = map # Map loaded from file, or blank editor map
         # @game_mode = game_mode # :tdm, :ctf, :demo, :koth, :edit
         # @game_master = game_master # nickname of "game master/host" or nil if managed server
       end
 
       def think
-        # TODO: "drain" queued packets instead of only taking one
+        # Service enet so we send and receive them delicious ~~cookies~~packets
         while (update(0) > 0)
         end
 
         # TODO: Advertise server on LAN via multicast
         # REF: https://github.com/jpignata/blog/blob/master/articles/multicast-in-ruby.md
 
-        simulate
+        # Run that simulation!
+        @game&.update(simulation_callback: method(:simulate))
       end
 
-      # Run ta sim-u-late-ion
       def simulate
         t = Gosu.milliseconds
-        broadcast_packet("#{Packet.crc32(t.to_s)}#{t}", reliable: true, channel: 0)
+        broadcast_packet("#{Packet.crc32(t.to_s)}#{t}", reliable: false, channel: 0)
       end
 
       def on_connection(client)

@@ -28,7 +28,7 @@ module IMICTDS
       @server&.think
       @connection&.think
 
-      @game&.update([inputs: :to_do])
+      @game&.update
 
       super
     end
