@@ -1,9 +1,9 @@
 module IMICTDS
   module Networking
-    module PacketHandlers
+    class PacketHandler
       # Handles encoding/decoding of Server game state (snapshot)
       class Snapshot < PacketHandler
-        TYPE = 0xff
+        TYPE = 0x01
 
         # Returns a binary packed string
         def encode(data)

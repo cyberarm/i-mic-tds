@@ -1,9 +1,9 @@
 module IMICTDS
   module Networking
-    module PacketHandlers
+    class PacketHandler
       # Handles encoding/decoding of Player Input packets
       class Input < PacketHandler
-        TYPE = 0xff
+        TYPE = 0x00
 
         # Returns a binary packed string
         def encode(data)
