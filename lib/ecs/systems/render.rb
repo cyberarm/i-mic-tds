@@ -1,11 +1,11 @@
 module IMICTDS
   module ECS
-    module Systems
+    class System
       class Render < System
         def truple
           [
-            Components::Position,
-            Components::Render
+            Component::Position,
+            Component::Render
           ]
         end
 

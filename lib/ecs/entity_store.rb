@@ -8,8 +8,8 @@ module IMICTDS
         @entities = []
 
         @systems = [
-          Movement,
-          Render
+          System::Movement,
+          System::Render
         ]
       end
 

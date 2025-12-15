@@ -1,6 +1,6 @@
 module IMICTDS
   module ECS
-    module Components
+    class Component
       class Render < Component
         attr_reader :image, :scale, :center
 

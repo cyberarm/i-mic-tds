@@ -1,6 +1,6 @@
 module IMICTDS
   module ECS
-    module Components
+    class Component
       class Team < Component
         attr_accessor :team
 

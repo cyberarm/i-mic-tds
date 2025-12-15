@@ -1,6 +1,6 @@
 module IMICTDS
   module ECS
-    module Components
+    class Component
       class Velocity < Component
         attr_reader :velocity
 

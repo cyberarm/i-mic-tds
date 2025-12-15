@@ -1,6 +1,6 @@
 module IMICTDS
   module ECS
-    module Components
+    class Component
       class Position < Component
         attr_reader :position
 

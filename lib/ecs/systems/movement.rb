@@ -1,11 +1,11 @@
 module IMICTDS
   module ECS
-    module Systems
+    class System
       class Movement < System
         def truple
           [
-            Components::Position,
-            Components::Velocity
+            Component::Position,
+            Component::Velocity
           ]
         end
 
