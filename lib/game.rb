@@ -13,10 +13,13 @@ module IMICTDS
       @game_master = game_master
 
       # NOTE: This is the ONLY source of time for the WHOLE game,
-      #       Using Gosu.milliseconds directly WILL break replays and otherwise lead to sadness.
+      #       Using IMICTDS.milliseconds directly WILL break replays and otherwise lead to sadness.
       @time = 0.0
       @accumulator = 0.0
       @alpha = 0.0
+
+      @current_time = IMICTDS.milliseconds
+      pp @current_time
     end
 
     # Fix Your Timestep!: https://gafferongames.com/post/fix_your_timestep/
@@ -24,10 +27,10 @@ module IMICTDS
       # Handle player inputs
       # Simulate game using fixed timestep
 
-      # FIXME: DO NOT USE Gosu.milliseconds as a time reference!
-      #        as server will not have Gosu available.
-      frame_time = CyberarmEngine::Window.dt
+      new_time = IMICTDS.milliseconds
+      frame_time = (new_time - @current_time) / 1000.0
       frame_time = DEATH_SPIRAL_MAX_FRAME_TIME if frame_time > DEATH_SPIRAL_MAX_FRAME_TIME
+      @current_time = new_time
 
       @accumulator += frame_time
 

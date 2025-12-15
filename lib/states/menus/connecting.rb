@@ -5,6 +5,9 @@ module IMICTDS
         @remote_host = @options[:host]
         @remote_port = @options[:port]
 
+        @forward = @options[:forward]
+        @forward_options = @options[:forward_options] || {}
+
         theme(THEME)
 
         stack(width: 1.0, height: 1.0, padding: 32) do
@@ -23,7 +26,7 @@ module IMICTDS
         return unless window.connection&.connected?
 
         pop_state
-        push_state(States::Play)
+        push_state(@forward, **@forward_options)
       end
 
       def button_down(id)

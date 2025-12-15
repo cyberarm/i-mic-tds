@@ -1,3 +1,12 @@
+require_relative "../tool"
+require_relative "../tools/polygon"
+require_relative "../tools/prefab"
+
+require_relative "../command"
+require_relative "../commands/polygon"
+require_relative "../commands/polygon_point"
+require_relative "../commands/prefab"
+
 module IMICTDS
   module MapEditor
     class States
@@ -5,7 +14,7 @@ module IMICTDS
         def setup
           theme(THEME)
 
-          t = Gosu.milliseconds
+          t = IMICTDS.milliseconds
           # @server = IMICTDS::Networking::Server.new(host: "localhost", port: 56789, channels: 8, map: nil, game_mode: :edit)
           # @client = IMICTDS::Networking::Client.new(host: "localhost", port: 56789, channels: 8)
           # @client.connect(0)

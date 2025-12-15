@@ -29,7 +29,7 @@ module IMICTDS
       end
 
       def simulate
-        t = Gosu.milliseconds
+        t = IMICTDS.milliseconds
         broadcast_packet("#{Packet.crc32(t.to_s)}#{t}", reliable: false, channel: 0)
       end
 

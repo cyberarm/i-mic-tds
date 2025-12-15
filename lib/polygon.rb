@@ -27,7 +27,7 @@ module IMICTDS
 
       @triangles.clear
       puts "GENERATING..."
-      t = Gosu.milliseconds # !server unsafe
+      t = IMICTDS.milliseconds # !server unsafe
       list = @points.dup
       list = list.reverse unless clockwise?(list)
 
@@ -74,7 +74,7 @@ module IMICTDS
 
       @triangulated = true
       @points_count = @points.size
-      puts "Took: #{Gosu.milliseconds - t}ms" # !server unsafe
+      puts "Took: #{IMICTDS.milliseconds - t}ms" # !server unsafe
     end
 
     def draw

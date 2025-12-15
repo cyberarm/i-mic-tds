@@ -53,6 +53,8 @@ require_relative "game_modes/team_deathmatch"
 require_relative "game_modes/king_of_the_hill"
 
 module IMICTDS
+  @_internal_monotonic_offset_ms = 0
+
   # Assert that all of a classes children use a unique TYPE (id)
   def self.assert_subclassed_type_unique(klass)
     subclasses = klass.subclasses
@@ -81,6 +83,15 @@ module IMICTDS
   def self.format_size_number(i)
     format("%0.2f", i)
   end
+
+  def self.milliseconds
+    Process.clock_gettime(Process::CLOCK_MONOTONIC, :millisecond) - @_internal_monotonic_offset_ms
+  end
+
+  def self._monotonic_offset_ms(ms)
+    @_internal_monotonic_offset_ms = ms
+  end
 end
 
 IMICTDS.assert_subclassed_type_unique(IMICTDS::Networking::PacketHandler)
+IMICTDS._monotonic_offset_ms(IMICTDS.milliseconds)

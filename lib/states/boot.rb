@@ -10,13 +10,13 @@ module IMICTDS
           banner NAME, width: 1.0, text_align: :center
         end
 
-        @start_time = Gosu.milliseconds
+        @start_time = IMICTDS.milliseconds
       end
 
       def update
         super
 
-        if Gosu.milliseconds - @start_time >= 2_500
+        if IMICTDS.milliseconds - @start_time >= 2_500
           pop_state
           push_state(@options[:forward])
         end
