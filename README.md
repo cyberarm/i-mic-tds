@@ -27,3 +27,8 @@ Manages squads of bots and gives squads goals to play the game mode effectively.
 
 ### Use Squads of Agents
 Make groups of agents (bots) work "together" to achieve the goal given by the Mastermind.
+
+## Resources
+* Timestep / Physics: https://gafferongames.com/post/fix_your_timestep/
+* Netcode: https://www.gabrielgambetta.com/client-server-game-architecture.html
+* Netcode: https://gafferongames.com/post/snapshot_interpolation/
