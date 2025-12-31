@@ -91,6 +91,23 @@ module IMICTDS
   def self._monotonic_offset_ms(ms)
     @_internal_monotonic_offset_ms = ms
   end
+
+  # Returns a UUIDv7-ish unique identifier with an acceptably low risk of collisions
+  # as a string. "Reimplementing" as we plan to use mruby later for distribution.
+  def self.generate_uuid
+    unix_epoch_ms = (Time.now.to_f * 1000).to_i
+    random_number = Random.srand
+
+    hex_string = random_number.to_s(16)
+
+    "%08x-%04x-%s-%s-%s" % [
+      (unix_epoch_ms & 0x0000_ffff_ffff_0000) >> 16,
+      (unix_epoch_ms & 0x0000_0000_0000_ffff),
+      hex_string[0..3],
+      hex_string[4..7],
+      hex_string[8..19]
+    ]
+  end
 end
 
 IMICTDS.assert_subclassed_type_unique(IMICTDS::Networking::PacketHandler)
