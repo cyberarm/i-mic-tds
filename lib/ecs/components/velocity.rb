@@ -5,7 +5,9 @@ module IMICTDS
         attr_reader :velocity
 
         def initialize(velocity:)
-          raise "Velocity must be a CyberarmEngine::Vector, got #{velocity.class}" unless velocity.is_a?(CyberarmEngine::Vector)
+          unless velocity.is_a?(CyberarmEngine::Vector)
+            raise "Velocity must be a CyberarmEngine::Vector, got #{velocity.class}"
+          end
 
           @velocity = velocity
         end

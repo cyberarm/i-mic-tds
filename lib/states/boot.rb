@@ -16,10 +16,10 @@ module IMICTDS
       def update
         super
 
-        if IMICTDS.milliseconds - @start_time >= 2_500
-          pop_state
-          push_state(@options[:forward])
-        end
+        return unless IMICTDS.milliseconds - @start_time >= 2_500
+
+        pop_state
+        push_state(@options[:forward])
       end
 
       def button_down(id)

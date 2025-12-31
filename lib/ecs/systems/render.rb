@@ -9,8 +9,7 @@ module IMICTDS
           ]
         end
 
-        def draw(entity_store)
-        end
+        def draw(entity_store); end
       end
     end
   end

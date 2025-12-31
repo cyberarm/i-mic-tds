@@ -4,7 +4,7 @@ module IMICTDS
       def setup
         theme(THEME)
 
-        @label = tagline 'Pending...', margin: 16
+        @label = tagline "Pending...", margin: 16
         @sample = {
           _time: -1.0,
           packets_a: 0,

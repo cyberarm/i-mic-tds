@@ -3,8 +3,7 @@ module IMICTDS
     SIMULATION_INTERVAL = 1.0 / 128 # 128 "ticks" per second
     DEATH_SPIRAL_MAX_FRAME_TIME = 0.25 # seconds
 
-    attr_reader :entity_store, :map, :game_mode, :game_master
-    attr_reader :time
+    attr_reader :entity_store, :map, :game_mode, :game_master, :time
 
     def initialize(map:, game_mode:, game_master:)
       @entity_store = ECS::EntityStore.new
@@ -48,7 +47,6 @@ module IMICTDS
 
     # Run ta sim-u-late-ion
     # NOTE: {dt} MUST be a static value
-    def simulate(dt)
-    end
+    def simulate(dt); end
   end
 end

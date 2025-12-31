@@ -14,17 +14,19 @@ module IMICTDS
         def setup
           theme(THEME)
 
-          t = IMICTDS.milliseconds
+          # t = IMICTDS.milliseconds
           # @server = IMICTDS::Networking::Server.new(host: "localhost", port: 56789, channels: 8, map: nil, game_mode: :edit)
           # @client = IMICTDS::Networking::Client.new(host: "localhost", port: 56789, channels: 8)
           # @client.connect(0)
 
           flow(width: 1.0, height: 1.0) do
-            stack(max_width: 384, width: 1.0, height: 1.0, background: 0xdd_b5835a, border_thickness: 2, border_color: 0xaa_252525) do
-
+            stack(max_width: 384, width: 1.0, height: 1.0, background: 0xdd_b5835a, border_thickness: 2,
+                  border_color: 0xaa_252525) do
               banner "Map Editor", width: 1.0, text_align: :center, margin_top: 32
-              flow(width: 1.0, height: 40, border_thickness: 2, border_color: 0xaa_252525, margin_left: 32, margin_right: 32, padding: 4) do
-                button get_image("#{ROOT_PATH}/assets/ui_icons/exit.png"), image_height: 1.0, min_width: nil, tip: "Save map and close editor" do
+              flow(width: 1.0, height: 40, border_thickness: 2, border_color: 0xaa_252525, margin_left: 32,
+                   margin_right: 32, padding: 4) do
+                button get_image("#{ROOT_PATH}/assets/ui_icons/exit.png"), image_height: 1.0, min_width: nil,
+                                                                           tip: "Save map and close editor" do
                   # @client.disconnect(1_500)
                   # @server.close
 
@@ -33,19 +35,23 @@ module IMICTDS
 
                 edit_line "MAP_NAME_HERE", fill: true, height: 1.0
 
-                button get_image("#{ROOT_PATH}/assets/ui_icons/save.png"), image_height: 1.0, min_width: nil, tip: "Save map"
-                button get_image("#{ROOT_PATH}/assets/ui_icons/right.png"), image_height: 1.0, min_width: nil, tip: "Test map"
+                button get_image("#{ROOT_PATH}/assets/ui_icons/save.png"), image_height: 1.0, min_width: nil,
+                                                                           tip: "Save map"
+                button get_image("#{ROOT_PATH}/assets/ui_icons/right.png"), image_height: 1.0, min_width: nil,
+                                                                            tip: "Test map"
               end
 
               stack(width: 1.0, fill: true, padding: 32, scroll: true) do
                 title "Play Space", width: 1.0, text_align: :center, tip: "Closed polygon defining the play area"
-                flow(width: 1.0, height: 40, border_thickness: 2, border_color: 0xaa_252525, margin_bottom: 32, padding: 4) do
+                flow(width: 1.0, height: 40, border_thickness: 2, border_color: 0xaa_252525, margin_bottom: 32,
+                     padding: 4) do
                   button get_image("#{ROOT_PATH}/assets/ui_icons/wrench.png"), image_height: 1.0, min_width: nil
                   flow(fill: true)
                   button get_image("#{ROOT_PATH}/assets/ui_icons/trashCan.png"), image_height: 1.0, min_width: nil
                 end
 
-                title "Obstructions", width: 1.0, text_align: :center, tip: "Closed polygons that obstruct the play space"
+                title "Obstructions", width: 1.0, text_align: :center,
+                                      tip: "Closed polygons that obstruct the play space"
                 stack(width: 1.0, border_thickness: 2, border_color: 0xaa_252525, margin_bottom: 32) do
                   10.times do |i|
                     flow(width: 1.0, height: 40, padding: 4) do
@@ -58,9 +64,11 @@ module IMICTDS
                   end
                 end
 
-                title "Game Elements", width: 1.0, text_align: :center, tip: "Flag(s), Bomb(s), King of the Hill(s), and player spawn points"
+                title "Game Elements", width: 1.0, text_align: :center,
+                                       tip: "Flag(s), Bomb(s), King of the Hill(s), and player spawn points"
                 stack(width: 1.0, border_thickness: 2, border_color: 0xaa_252525, margin_bottom: 32) do
-                  flow(width: 1.0, height: 40, border_thickness_bottom: 2, border_color_bottom: 0xaa_252525, margin_bottom: 16, padding: 4) do
+                  flow(width: 1.0, height: 40, border_thickness_bottom: 2, border_color_bottom: 0xaa_252525,
+                       margin_bottom: 16, padding: 4) do
                     6.times do
                       button get_image("#{ROOT_PATH}/assets/ui_icons/wrench.png"), image_height: 1.0, min_width: nil
                     end
@@ -79,7 +87,8 @@ module IMICTDS
 
                 title "AI", width: 1.0, text_align: :center, tip: "[Description pending...]"
                 stack(width: 1.0, border_thickness: 2, border_color: 0xaa_252525) do
-                  flow(width: 1.0, height: 40, border_thickness_bottom: 2, border_color_bottom: 0xaa_252525, margin_bottom: 16, padding: 4) do
+                  flow(width: 1.0, height: 40, border_thickness_bottom: 2, border_color_bottom: 0xaa_252525,
+                       margin_bottom: 16, padding: 4) do
                     6.times do
                       button get_image("#{ROOT_PATH}/assets/ui_icons/wrench.png"), image_height: 1.0, min_width: nil
                     end
@@ -149,7 +158,6 @@ module IMICTDS
 
           @flag_pole ||= get_image("#{ROOT_PATH}/assets/content/enemy_flag_pole.png")
           @flag_pole.draw_rot(850, 400, 1000, 0, 0.5, 0.5, 1.0, 1.0)
-
 
           @flag_platform ||= get_image("#{ROOT_PATH}/assets/content/flag_platform.png")
           @flag_platform.draw_rot(850 + 75, 430, 1000, 0, 0.5, 0.5, 1.0, 1.0, 0xff_1c71d8)

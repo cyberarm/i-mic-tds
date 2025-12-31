@@ -1,7 +1,8 @@
 module IMICTDS
   module Networking
     class Server < ENet::Server
-      def initialize(host:, port:, max_clients: DEFAULT_MAX_CLIENTS, channels: DEFAULT_CHANNEL_COUNT, download_bandwidth: 0, upload_bandwidth: 0, config: {})
+      def initialize(host:, port:, max_clients: DEFAULT_MAX_CLIENTS, channels: DEFAULT_CHANNEL_COUNT,
+                     download_bandwidth: 0, upload_bandwidth: 0, config: {})
         super(
           host: host, port: port, max_clients: max_clients, channels: channels,
           download_bandwidth: download_bandwidth, upload_bandwidth: upload_bandwidth
@@ -18,7 +19,7 @@ module IMICTDS
 
       def think
         # Service enet so we send and receive them delicious ~~cookies~~packets
-        while (update(0) > 0)
+        while update(0) > 0
         end
 
         # TODO: Advertise server on LAN via multicast
@@ -35,20 +36,20 @@ module IMICTDS
 
       def on_connection(client)
         puts "Client Connected: #{client.id}"
-        send_packet(client, "#{Packet.crc32("WELCOME")}WELCOME", reliable: true, channel: 0)
+        send_packet(client, "#{Packet.crc32('WELCOME')}WELCOME", reliable: true, channel: 0)
       end
 
-      def on_packet_received(client, data, channel)
+      def on_packet_received(_client, data, _channel)
         # Require CRC32 and packet type
         return if data.length < 5
 
         # Discard if CRC32 doesn't include Packet::MAGICAL_PREFIX or is otherwise invalid
-        return unless Packet.verify_crc32(data[0..3].unpack("C*"), data[4..])
+        nil unless Packet.verify_crc32(data[0..3].unpack("C*"), data[4..])
 
         # TODO: Hand packet to packet handler
       end
 
-      def on_disconnection(client)
+      def on_disconnection(_client)
         puts "Client Disconnected."
       end
     end

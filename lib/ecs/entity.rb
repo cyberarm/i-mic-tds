@@ -11,6 +11,7 @@ module IMICTDS
 
       def add_component(component)
         raise "Component already exists on entity!" if @entity_components.find { |c| c.is_a?(component) }
+
         @entity_components << component
       end
 

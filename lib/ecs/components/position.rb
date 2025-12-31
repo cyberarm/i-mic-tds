@@ -5,7 +5,9 @@ module IMICTDS
         attr_reader :position
 
         def initialize(position:)
-          raise "Position must be a CyberarmEngine::Vector, got #{position.class}" unless position.is_a?(CyberarmEngine::Vector)
+          unless position.is_a?(CyberarmEngine::Vector)
+            raise "Position must be a CyberarmEngine::Vector, got #{position.class}"
+          end
 
           @position = position
         end

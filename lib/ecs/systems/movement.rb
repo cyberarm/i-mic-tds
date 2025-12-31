@@ -9,11 +9,9 @@ module IMICTDS
           ]
         end
 
-        def update(entity_store)
-        end
+        def update(entity_store); end
 
-        def fixed_update(entity_store)
-        end
+        def fixed_update(entity_store); end
       end
     end
   end

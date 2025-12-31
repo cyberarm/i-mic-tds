@@ -39,7 +39,7 @@ module IMICTDS
         c = list[(i + 2) % list.size]
         ear = false
 
-        if (angle(a, b, c) < Math::PI)
+        if angle(a, b, c) < Math::PI
           ear = true
 
           ((list.size + i + 3) - (i + 3)).times do |j|
@@ -87,7 +87,12 @@ module IMICTDS
         b = t[1]
         c = t[2]
 
-        color = point_inside_triangle?(CyberarmEngine::Vector.new(window.mouse_x, window.mouse_y), t) ? @color : @debug_colors[i]
+        color = if point_inside_triangle?(CyberarmEngine::Vector.new(window.mouse_x, window.mouse_y),
+                                          t)
+                  @color
+                else
+                  @debug_colors[i]
+                end
 
         Gosu.draw_triangle(
           a.x, a.y, color,
@@ -113,7 +118,7 @@ module IMICTDS
     end
 
     def angle(a, b, c)
-      x = Math.atan2((c.y - b.y), (c.x - b.x)) - Math.atan2((a.y - b.y), (a.x - b.x))
+      x = Math.atan2(c.y - b.y, c.x - b.x) - Math.atan2(a.y - b.y, a.x - b.x)
 
       x < 0 ? Math::PI * 2 + x : x
     end
@@ -131,7 +136,7 @@ module IMICTDS
       area_b = triangle_area([b, c, pt])
       area_c = triangle_area([c, a, pt])
 
-      (sign(area_a) == sign(area_b) && sign(area_a) == sign(area_c))
+      sign(area_a) == sign(area_b) && sign(area_a) == sign(area_c)
     end
 
     def sign(n)
@@ -156,12 +161,12 @@ module IMICTDS
       sum = 0
 
       pts.each_with_index do |a, i|
-        b = pts[i + 1] ? pts[i + 1] : pts[0]
+        b = pts[i + 1] || pts[0]
 
         sum += (b.x - a.x) * (b.y + a.y)
       end
 
-      return sum >= 0
+      sum >= 0
     end
   end
 end

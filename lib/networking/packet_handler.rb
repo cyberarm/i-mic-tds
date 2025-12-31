@@ -8,7 +8,6 @@ module IMICTDS
         raise "Cannot both encode and decode" if encode && decode
         raise "No-op: encode and decode are both false" unless encode && decode
 
-
         if encode
           @___data = encode(data)
         elsif decode

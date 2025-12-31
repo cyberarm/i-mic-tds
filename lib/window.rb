@@ -3,7 +3,7 @@ module IMICTDS
     attr_reader :server, :connection, :game
 
     def setup
-      self.caption = format('%s (v%s) [%s]', NAME, VERSION, VERSION_NAME)
+      self.caption = format("%s (v%s) [%s]", NAME, VERSION, VERSION_NAME)
 
       self.update_interval = 0.001 / 60 # Only limited by v-sync
       self.show_stats_plotter = false
@@ -17,8 +17,8 @@ module IMICTDS
         push_state(States::MainMenu)
       elsif DEBUG_QUICKPLAY
         @game = Game.new(map: Map.new, game_mode: nil, game_master: nil)
-        start_listen_server(host: 'localhost', port: IMICTDS::Networking::DEFAULT_PORT)
-        push_state(States::Connecting, forward: States::Play, host: 'localhost', port: IMICTDS::Networking::DEFAULT_PORT)
+        start_listen_server(host: "localhost", port: IMICTDS::Networking::DEFAULT_PORT)
+        push_state(States::Connecting, forward: States::Play, host: "localhost", port: IMICTDS::Networking::DEFAULT_PORT)
       else
         push_state(CyberarmEngine::IntroState, forward: States::Boot, forward_options: { forward: States::MainMenu })
       end
