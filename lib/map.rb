@@ -13,7 +13,10 @@ module IMICTDS
       @grid_size = 64
       @map_size = 1024 * 8
 
-      @offset = CyberarmEngine::Vector.new(@map_size / 2 - window.width / 2, @map_size / 2 - window.height / 2)
+      @offset = CyberarmEngine::Vector.new(
+        @map_size / 2 - window.width / 2,
+        @map_size / 2 - window.height / 2
+      )
       @zoom = 1.0
       @min_zoom = 0.25
       @max_zoom = 2.5
@@ -22,11 +25,9 @@ module IMICTDS
       @edit_mode = false
     end
 
-    def load(map_file:)
-    end
+    def load(map_file:); end
 
-    def save(map_file:)
-    end
+    def save(map_file:); end
 
     def edit_mode?
       @edit_mode
@@ -51,16 +52,16 @@ module IMICTDS
         return unless edit_mode?
 
         # Map grid
-        y_start = ((@offset.y).clamp(0, @map_size) / @grid_size).round
+        y_start = (@offset.y.clamp(0, @map_size) / @grid_size).round
         y_end = ((@offset.y + window.height).clamp(0, @map_size) / @grid_size).round
 
-        x_start = ((@offset.x).clamp(0, @map_size) / @grid_size).round
+        x_start = (@offset.x.clamp(0, @map_size) / @grid_size).round
         x_end = ((@offset.x + window.width).clamp(0, @map_size) / @grid_size).round
 
         (y_start..y_end).each do |y|
-          y = y * @grid_size
+          y *= @grid_size
           (x_start..x_end).each do |x|
-            x = x * @grid_size
+            x *= @grid_size
 
             Gosu.draw_circle(x, y, 4, 9, mouse_near?(x, y, 10.0) ? 0xaa_ffffff : 0xaa_000000, 100)
           end
@@ -69,16 +70,15 @@ module IMICTDS
     end
 
     def update
-
       return unless edit_mode?
 
-      if @drag_start
-        delta = @drag_start - CyberarmEngine::Vector.new(window.mouse_x, window.mouse_y)
+      return unless @drag_start
 
-        @offset += delta
+      delta = @drag_start - CyberarmEngine::Vector.new(window.mouse_x, window.mouse_y)
 
-        @drag_start -= delta
-      end
+      @offset += delta
+
+      @drag_start -= delta
     end
 
     def button_down(id)

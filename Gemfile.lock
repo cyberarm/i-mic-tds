@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/cyberarm/ffi-enet.git
-  revision: 3a695ca3a323e70af79e96ca3f389e618c5b6d2c
+  revision: ebb9e2070b3d9dd3bc4893dc074975138c6ba666
   specs:
     ffi-enet (0.1.0)
       ffi (~> 1.15)
@@ -27,4 +27,4 @@ DEPENDENCIES
   ffi-enet!
 
 BUNDLED WITH
-   2.6.9
+   2.6.8
