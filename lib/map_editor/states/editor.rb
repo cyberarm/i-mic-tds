@@ -20,6 +20,7 @@ module IMICTDS
           # @client.connect(0)
 
           flow(width: 1.0, height: 1.0) do
+            # Left Panel
             stack(max_width: 384, width: 1.0, height: 1.0, background: 0xdd_b5835a, border_thickness: 2,
                   border_color: 0xaa_252525) do
               banner "Map Editor", width: 1.0, text_align: :center, margin_top: 32
@@ -110,6 +111,26 @@ module IMICTDS
             @map_area_container = flow(fill: true, height: 1.0, padding: 4) do
               @map_position_label = tagline "", width: 128
               @map_tool_label = tagline "Tool: Apple"
+            end
+
+            # Right Panel: Entity Editor
+            stack(max_width: 384, width: 1.0, height: 1.0, background: 0xdd_b5835a, border_thickness: 2,
+                  border_color: 0xaa_252525) do
+              banner "Object Editor", width: 1.0, text_align: :center, margin_top: 32
+              title "Prefab: 0xdeadbeef", width: 1.0, text_align: :center
+              flow(width: 1.0, height: 40, border_thickness: 2, border_color: 0xaa_252525, margin_left: 32,
+                   margin_right: 32, padding: 4) do
+                edit_line "NAME", width: 1.0, tip: "Prefab name"
+              end
+              stack(width: 1.0, fill: true, padding: 32, scroll: true) do
+                title "Components", width: 1.0, text_align: :center
+                ["Health", "Position", "Collider"].each do |component|
+                  subtitle component, width: 1.0, text_align: :center
+                  flow(width: 1.0, height: 40, border_thickness: 2, border_color: 0xaa_252525, padding: 4) do
+                    edit_line "#{rand(0..100)}", width: 1.0, text_align: :center
+                  end
+                end
+              end
             end
           end
 

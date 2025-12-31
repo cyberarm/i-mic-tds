@@ -10,7 +10,19 @@ module IMICTDS
     Title: {
       font: "#{ROOT_PATH}/assets/fonts/noto_sans/NotoSans-Black.ttf"
     },
+    Subtitle: {
+      font: "#{ROOT_PATH}/assets/fonts/noto_sans/NotoSans-Black.ttf"
+    },
     Tagline: {
+      font: "#{ROOT_PATH}/assets/fonts/noto_sans/NotoSans-Black.ttf"
+    },
+    Caption: {
+      font: "#{ROOT_PATH}/assets/fonts/noto_sans/NotoSans-Black.ttf"
+    },
+    Para: {
+      font: "#{ROOT_PATH}/assets/fonts/noto_sans/NotoSans-Black.ttf"
+    },
+    Inscription: {
       font: "#{ROOT_PATH}/assets/fonts/noto_sans/NotoSans-Black.ttf"
     },
     ToolTip: {
