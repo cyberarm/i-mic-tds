@@ -124,7 +124,7 @@ module IMICTDS
               end
               stack(width: 1.0, fill: true, padding: 32, scroll: true) do
                 title "Components", width: 1.0, text_align: :center
-                ["Health", "Position", "Collider"].each do |component|
+                %w[Health Position Collider].each do |component|
                   subtitle component, width: 1.0, text_align: :center
                   flow(width: 1.0, height: 40, border_thickness: 2, border_color: 0xaa_252525, padding: 4) do
                     edit_line "#{rand(0..100)}", width: 1.0, text_align: :center
@@ -154,7 +154,8 @@ module IMICTDS
         end
 
         def draw
-          @map.draw
+          IMICTDS::MapRenderer.draw_map(@map, self)
+          IMICTDS::MapRenderer.draw_polygon(@polygon, self)
           # @polygon.draw
 
           Gosu.flush
@@ -196,7 +197,13 @@ module IMICTDS
           # @server.think
           # @client.think
 
-          @map.update
+          if @map.drag_start
+            delta = @map.drag_start - CyberarmEngine::Vector.new(window.mouse_x, window.mouse_y)
+
+            @map.offset += delta
+
+            @map.drag_start -= delta
+          end
 
           @map_position_label.value = format("X: %0.2f\nY: %0.2f\nZoom: %0.2f", @map.offset.x, @map.offset.y, @map.zoom)
 
@@ -204,15 +211,40 @@ module IMICTDS
         end
 
         def button_down(id)
-          @map.button_down(id) if @map_area_container.hit?(window.mouse_x, window.mouse_y)
+          if @map_area_container.hit?(window.mouse_x, window.mouse_y)
+            case id
+            when Gosu::MS_WHEEL_UP
+              @map.zoom += @map.zoom_step
+              @map.zoom = @map.max_zoom if @map.zoom > @map.max_zoom
+            when Gosu::MS_WHEEL_DOWN
+              @map.zoom -= @map.zoom_step
+              @map.zoom = @map.min_zoom if @map.zoom < @map.min_zoom
+            when Gosu::MS_MIDDLE
+              @map.drag_start = CyberarmEngine::Vector.new(window.mouse_x, window.mouse_y)
+            end
+          end
 
           super
         end
 
         def button_up(id)
-          @map.button_up(id) if @map_area_container.hit?(window.mouse_x, window.mouse_y)
+          if @map_area_container.hit?(window.mouse_x, window.mouse_y)
+            case id
+            when Gosu::MS_MIDDLE
+              @map.drag_start = nil
+            end
+          end
 
           super
+        end
+
+        def mouse_near?(x, y, dist)
+          Gosu.distance(
+            window.mouse_x + @map.offset.x * @map.zoom,
+            window.mouse_y + @map.offset.y * @map.zoom,
+            x,
+            y
+          ) <= dist
         end
       end
     end

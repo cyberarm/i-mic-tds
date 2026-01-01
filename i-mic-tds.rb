@@ -5,6 +5,7 @@ rescue LoadError
 end
 
 require_relative "lib/shared"
+require_relative "lib/map_renderer"
 
 require_relative "lib/theme"
 require_relative "lib/window"

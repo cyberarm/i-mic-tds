@@ -47,6 +47,42 @@ module IMICTDS
 
         window.game&.map&.draw
       end
+
+      def draw_map(_map)
+        # Map background
+        Gosu.draw_rect(0, 0, context.window.width, context.window.height, 0xff_26a269)
+
+        Gosu.translate(-@offset.x, -@offset.y) do
+          Gosu.scale(@zoom, @zoom, context.window.width / 2, context.window.height / 2) do
+            # TODO: Map play area
+            @play_area.each(&:draw)
+
+            # TODO: Map obstructions
+            @obstructions.each(&:draw)
+
+            # TODO: Map game elements
+            @entities.each(&:draw)
+          end
+
+          return unless edit_mode?
+
+          # Map grid
+          y_start = (@offset.y.clamp(0, @map_size) / @grid_size).round
+          y_end = ((@offset.y + context.window.height).clamp(0, @map_size) / @grid_size).round
+
+          x_start = (@offset.x.clamp(0, @map_size) / @grid_size).round
+          x_end = ((@offset.x + context.window.width).clamp(0, @map_size) / @grid_size).round
+
+          (y_start..y_end).each do |y|
+            y *= @grid_size
+            (x_start..x_end).each do |x|
+              x *= @grid_size
+
+              Gosu.draw_circle(x, y, 4, 9, mouse_near?(x, y, 10.0) ? 0xaa_ffffff : 0xaa_000000, 100)
+            end
+          end
+        end
+      end
     end
   end
 end

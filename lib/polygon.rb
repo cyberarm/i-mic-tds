@@ -1,8 +1,7 @@
 module IMICTDS
   class Polygon
-    include CyberarmEngine::Common
-
-    attr_reader :points
+    attr_reader :points, :points_count, :triangles, :debug_colors
+    attr_accessor :color, :border_color, :border_size, :z
 
     def initialize(points, z = 0, color = Gosu::Color::WHITE, border_color = Gosu::Color::TRANSPARENT, border_size = 0)
       @points = points
@@ -27,7 +26,7 @@ module IMICTDS
 
       @triangles.clear
       puts "GENERATING..."
-      t = IMICTDS.milliseconds # !server unsafe
+      t = IMICTDS.milliseconds
       list = @points.dup
       list = list.reverse unless clockwise?(list)
 
@@ -77,50 +76,14 @@ module IMICTDS
       puts "Took: #{IMICTDS.milliseconds - t}ms" # !server unsafe
     end
 
-    def draw
-      @triangulated = false if @points.size != @points_count
-
-      triangulate unless @triangulated
-
-      @triangles.each_with_index do |t, i|
-        a = t[0]
-        b = t[1]
-        c = t[2]
-
-        color = if point_inside_triangle?(CyberarmEngine::Vector.new(window.mouse_x, window.mouse_y),
-                                          t)
-                  @color
-                else
-                  @debug_colors[i]
-                end
-
-        Gosu.draw_triangle(
-          a.x, a.y, color,
-          b.x, b.y, color,
-          c.x, c.y, color,
-          @z
-        )
-      end
-
-      return if @border_size.zero? || @points_count < 2
-
-      # TODO: Draw polygon border (using rects so that it can have thickness)
-      anchor_point = @points.first
-      @points[1...].each do |point|
-        Gosu.draw_line(
-          anchor_point.x, anchor_point.y, @border_color,
-          point.x, point.y, @border_color,
-          @z
-        )
-
-        anchor_point = point
-      end
-    end
-
     def angle(a, b, c)
       x = Math.atan2(c.y - b.y, c.x - b.x) - Math.atan2(a.y - b.y, a.x - b.x)
 
       x < 0 ? Math::PI * 2 + x : x
+    end
+
+    def triangulated?
+      @triangulated
     end
 
     def point_inside?(vector)
