@@ -2,6 +2,8 @@ module IMICTDS
   module ECS
     class Component
       class Position < Component
+        TYPE = 0x00
+
         attr_reader :position
 
         def initialize(position:)

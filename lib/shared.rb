@@ -23,6 +23,7 @@ require "digest/crc"
 # TODO: Require CyberarmEngine::Vector and supporting classes for headless server
 
 require_relative "version"
+require_relative "index"
 
 require_relative "ecs/entity_store"
 require_relative "ecs/entity"
@@ -54,6 +55,7 @@ require_relative "game_modes/king_of_the_hill"
 
 module IMICTDS
   @_internal_monotonic_offset_ms = 0
+  @_internal_index = Index.new
 
   # Assert that all of a classes children use a unique TYPE (id)
   def self.assert_subclassed_type_unique(klass)
@@ -92,6 +94,10 @@ module IMICTDS
     @_internal_monotonic_offset_ms = ms
   end
 
+  def self.index
+    @_internal_index
+  end
+
   # Returns a UUIDv7-ish unique identifier with an acceptably low risk of collisions
   # as a string. "Reimplementing" as we plan to use mruby later for distribution.
   def self.generate_uuid
@@ -110,5 +116,10 @@ module IMICTDS
   end
 end
 
+# Keep me dev from making simple errors
 IMICTDS.assert_subclassed_type_unique(IMICTDS::Networking::PacketHandler)
+IMICTDS.assert_subclassed_type_unique(IMICTDS::ECS::Component)
+# Tickle the clock
 IMICTDS._monotonic_offset_ms(IMICTDS.milliseconds)
+# Index our assets
+IMICTDS.index.scan(File.expand_path("../../assets", __FILE__))

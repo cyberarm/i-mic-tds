@@ -2,6 +2,8 @@ module IMICTDS
   module ECS
     class Component
       class Velocity < Component
+        TYPE = 0x01
+
         attr_reader :velocity
 
         def initialize(velocity:)

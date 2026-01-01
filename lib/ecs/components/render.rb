@@ -2,6 +2,8 @@ module IMICTDS
   module ECS
     class Component
       class Render < Component
+        TYPE = 0xf0
+
         attr_reader :image, :scale, :center
 
         def initialize(image:, scale: CyberarmEngine::Vector.new(1.0, 1.0),

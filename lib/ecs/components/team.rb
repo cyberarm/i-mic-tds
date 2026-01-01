@@ -2,6 +2,8 @@ module IMICTDS
   module ECS
     class Component
       class Team < Component
+        TYPE = 0x03
+
         attr_accessor :team
 
         def initialize(team:)
