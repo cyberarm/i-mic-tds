@@ -47,7 +47,7 @@ Example:
     [192, 192]
   ],
   "color": 2284991026,
-  "texture": "enviroments/desert/sand.png",
+  "texture": "sand.png",
   "border": {
     "thickness": 2,
     "color": 2855416370
@@ -58,11 +58,11 @@ Example:
 ### ENTITIES
 ```JSON
 {
-  "id": 1000037,
-  "name": "flag_pole",
-  "components": [
-    {}
-  ]
+  "id": 1000037, // ID of prefab
+  "properties": { // required data to correctly position entity in world
+    "position": [0.0, 0.0],
+    "heading": 0
+  }
 }
 ```
 
