@@ -136,6 +136,10 @@ module IMICTDS
 
           @map = Map.new
           @map.edit_mode = true
+          @map.offset = CyberarmEngine::Vector.new(
+            @map.map_size / 2 - window.width / 2,
+            @map.map_size / 2 - window.height / 2
+          )
 
           @polygon = Polygon.new(
             [
