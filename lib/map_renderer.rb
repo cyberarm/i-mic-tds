@@ -6,11 +6,11 @@ module IMICTDS
 
       Gosu.translate(-map.offset.x, -map.offset.y) do
         Gosu.scale(map.zoom, map.zoom, context.window.width / 2, context.window.height / 2) do
-          # TODO: Map play area
-          map.play_area.each(&:draw)
+          # TODO: Map play space
+          map.play_space&.draw
 
           # TODO: Map obstructions
-          map.obstructions.each(&:draw)
+          map.shapes.each(&:draw)
 
           # TODO: Map game elements
           map.entities.each(&:draw)

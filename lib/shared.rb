@@ -19,6 +19,7 @@ else
   require "ffi-enet/renet"
 end
 require "digest/crc"
+require "json"
 
 # TODO: Require CyberarmEngine::Vector and supporting classes for headless server
 

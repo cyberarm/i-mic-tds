@@ -11,10 +11,10 @@ Example:
   "shapes": [
     {}
   ],
-  "entities": [
+  "prefabs": [
     {}
   ],
-  "prefabs": [
+  "entities": [
     {}
   ]
 }
@@ -55,16 +55,26 @@ Example:
 }
 ```
 
+### PREFABS
+[See PREFABS.md](PREFABS.md)
+
 ### ENTITIES
 ```JSON
 {
   "id": 1000037, // ID of prefab
-  "properties": { // required data to correctly position entity in world
-    "position": [0.0, 0.0],
-    "heading": 0
-  }
+  "components": [ // Overridden component(s) from prefab
+    {
+      "type": 0,
+      "data": [
+        {
+          "name": "position",
+          "type": "vector",
+          "value": [
+            0.0, 0.0, 0.0, 0.0
+          ]
+        }
+      ]
+    },
+  ]
 }
 ```
-
-### PREFABS
-[See PREFABS.md](PREFABS.md)
