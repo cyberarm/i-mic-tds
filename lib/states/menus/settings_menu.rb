@@ -26,21 +26,18 @@ module IMICTDS
               @font_list.subscribe(:changed) do
                 case @font_list.value.split(" ").first.strip.to_sym
                 when :NotoSans
-                  @bold_font_example.style.default[:font] = "#{ROOT_PATH}/assets/fonts/noto_sans/NotoSans-Black.ttf"
-                  @font_example.style.default[:font] = "#{ROOT_PATH}/assets/fonts/noto_sans/NotoSans-Bold.ttf"
+                  @bold_font_example.style.font = "#{ROOT_PATH}/assets/fonts/noto_sans/NotoSans-Black.ttf"
+                  @font_example.style.font = "#{ROOT_PATH}/assets/fonts/noto_sans/NotoSans-Bold.ttf"
                 when :JetbrainsMono
-                  @bold_font_example.style.default[:font] =
+                  @bold_font_example.style.font =
                     "#{ROOT_PATH}/assets/fonts/jetbrains_mono/JetBrainsMono-ExtraBold.ttf"
-                  @font_example.style.default[:font] = "#{ROOT_PATH}/assets/fonts/jetbrains_mono/JetBrainsMono-Bold.ttf"
+                  @font_example.style.font = "#{ROOT_PATH}/assets/fonts/jetbrains_mono/JetBrainsMono-Bold.ttf"
                 when :OpenDyslexic
-                  @bold_font_example.style.default[:font] =
+                  @bold_font_example.style.font =
                     "#{ROOT_PATH}/assets/fonts/open_dyslexic/OpenDyslexic-Bold.otf"
-                  @font_example.style.default[:font] =
+                  @font_example.style.font =
                     "#{ROOT_PATH}/assets/fonts/open_dyslexic/OpenDyslexic-Regular.otf"
                 end
-
-                @bold_font_example.style.font = @bold_font_example.style.default[:font]
-                @font_example.style.font = @font_example.style.default[:font]
 
                 # FIXME: Update THEME and purge non-game, non-dialog states
                 # TODO: Do this properly, in its own method.
@@ -75,9 +72,7 @@ module IMICTDS
                   element.subscribe(:changed) do
                     color = Gosu::Color.from_hsv(@friendly_team_color_hue.value, @friendly_team_color_saturation.value,
                                                  @friendly_team_color_value.value)
-                    @friendly_team_color_label.style.default[:color] = color
                     @friendly_team_color_label.style.color = color
-                    request_recalculate_for(@friendly_team_color_label)
                   end
                 end
 
@@ -109,9 +104,7 @@ module IMICTDS
                   element.subscribe(:changed) do
                     color = Gosu::Color.from_hsv(@enemy_team_color_hue.value, @enemy_team_color_saturation.value,
                                                  @enemy_team_color_value.value)
-                    @enemy_team_color_label.style.default[:color] = color
                     @enemy_team_color_label.style.color = color
-                    request_recalculate_for(@enemy_team_color_label)
                   end
                 end
 
