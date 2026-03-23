@@ -1,5 +1,9 @@
 module IMICTDS
   class MapRenderer
+    GRID_DOT = Gosu.render(8, 8, false) do
+      Gosu.draw_circle(4, 4, 4, 18, 0xff_ffffff, 100)
+    end
+
     def self.draw_map(map, context)
       # Map background
       Gosu.draw_rect(0, 0, context.window.width, context.window.height, 0xff_26a269)
@@ -7,33 +11,55 @@ module IMICTDS
       Gosu.translate(-map.offset.x, -map.offset.y) do
         Gosu.scale(map.zoom, map.zoom, context.window.width / 2, context.window.height / 2) do
           # TODO: Map play space
-          map.play_space&.draw
+          draw_shape(map.play_space, context)
 
-          # TODO: Map obstructions
-          map.shapes.each(&:draw)
+          map.shapes.each { |s| draw_shape(s, context) }
 
           # TODO: Map game elements
           map.entities.each(&:draw)
         end
 
-        return unless map.edit_mode?
+        # NOTE: grid points are not, yet, effected by scale.
+        draw_grid(map, context) if map.edit_mode?
+      end
+    end
 
-        # Map grid
-        y_start = (map.offset.y.clamp(0, map.map_size) / map.grid_size).round
-        y_end = ((map.offset.y + context.window.height).clamp(0, map.map_size) / map.grid_size).round
+    def self.draw_grid(map, context)
+      # Map grid
+      y_start = (map.offset.y.clamp(0, map.map_size) / map.grid_size).round
+      y_end = ((map.offset.y + context.window.height).clamp(0, map.map_size) / map.grid_size).round
 
-        x_start = (map.offset.x.clamp(0, map.map_size) / map.grid_size).round
-        x_end = ((map.offset.x + context.window.width).clamp(0, map.map_size) / map.grid_size).round
+      x_start = (map.offset.x.clamp(0, map.map_size) / map.grid_size).round
+      x_end = ((map.offset.x + context.window.width).clamp(0, map.map_size) / map.grid_size).round
 
-        (y_start..y_end).each do |y|
-          y *= map.grid_size
-          (x_start..x_end).each do |x|
-            x *= map.grid_size
+      grid_line_color = 0x02_000000
+      diagonal_grid_line_color = 0x22_000000
+      # top left -> bottom right
+      Gosu.draw_line(0, 0, diagonal_grid_line_color, map.map_size, map.map_size, diagonal_grid_line_color, 100)
+      # top right -> bottom left
+      Gosu.draw_line(map.map_size, 0, diagonal_grid_line_color, 0, map.map_size, diagonal_grid_line_color, 100)
 
-            Gosu.draw_circle(x, y, 4, 9, context.mouse_near?(x, y, 10.0) ? 0xaa_ffffff : 0xaa_000000, 100)
-          end
+      (y_start..y_end).each do |y|
+        grid_y = y * map.grid_size
+
+        (x_start..x_end).each do |x|
+          grid_x = x * map.grid_size
+          color = (x + y).even? ? 0x44_000000 : 0xaa_252525
+
+          # top -> down
+          Gosu.draw_line(grid_x, y_start, grid_line_color, grid_x, y_end * map.grid_size, grid_line_color, 100)
+          # left -> right
+          Gosu.draw_line(x_start, grid_y, grid_line_color, x_end * map.grid_size, grid_y, grid_line_color, 100)
+
+          GRID_DOT.draw_rot(grid_x, grid_y, 100, 0, 0.5, 0.5, 1, 1, 0xff_ffffff) if context.mouse_near?(grid_x, grid_y, 10.0)
         end
       end
+
+      GRID_DOT.draw_rot(map.map_size / 2, map.map_size / 2, 100, 0, 0.5, 0.5, 1, 1, context.mouse_near?(map.map_size / 2, map.map_size / 2, 10.0) ? 0xaa_ffffff : 0xaa_ff8800)
+    end
+
+    def self.draw_shape(shape, context)
+      draw_polygon(shape.polygon, context)
     end
 
     def self.draw_polygon(polygon, context)

@@ -4,7 +4,7 @@
 
 A JSON array storing the list of global, or map local, entity prefabs.
 
-Global prefab IDs start at 1 million while map local prefab IDs start at 1 billion to avoid collions for the rest of time, probably.
+Global prefab IDs start at 1 million while map local prefab IDs start at 1 million to avoid collions for the rest of time, probably.
 
 Global prefab IDs can only increase and can NEVER be reused.
 

@@ -19,7 +19,7 @@ module IMICTDS
       @updated_at = Time.now.utc.iso8601
 
       # map data
-      @play_space = nil # A special shape
+      @play_space = Shape.new # A special shape
       @shapes = []
       @prefabs = []
       @entities = []
@@ -81,6 +81,10 @@ module IMICTDS
 
     def edit_mode?
       @edit_mode
+    end
+
+    def transform_point(vector)
+      vector + @offset * @zoom
     end
   end
 end

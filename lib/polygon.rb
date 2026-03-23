@@ -3,7 +3,7 @@ module IMICTDS
     attr_reader :points, :points_count, :triangles, :debug_colors
     attr_accessor :color, :border_color, :border_thickness, :z
 
-    def initialize(points:, z: 0, color: Gosu::Color::WHITE, border_color: Gosu::Color::TRANSPARENT,
+    def initialize(points:, z: 0, color: Gosu::Color::WHITE, border_color: Gosu::Color::NONE,
                    border_thickness: 0)
       @points = points
       @z = z
