@@ -1,14 +1,15 @@
 module IMICTDS
   class Polygon
     attr_reader :points, :points_count, :triangles, :debug_colors
-    attr_accessor :color, :border_color, :border_size, :z
+    attr_accessor :color, :border_color, :border_thickness, :z
 
-    def initialize(points, z = 0, color = Gosu::Color::WHITE, border_color = Gosu::Color::TRANSPARENT, border_size = 0)
+    def initialize(points:, z: 0, color: Gosu::Color::WHITE, border_color: Gosu::Color::TRANSPARENT,
+                   border_thickness: 0)
       @points = points
       @z = z
       @color = color
       @border_color = border_color
-      @border_size = border_size
+      @border_thickness = border_thickness
 
       @triangles = []
 

@@ -47,6 +47,7 @@ require_relative "networking/packet_handlers/snapshot"
 require_relative "game"
 require_relative "map"
 require_relative "polygon"
+require_relative "shape"
 
 require_relative "game_mode"
 require_relative "game_modes/bomb_detonation"

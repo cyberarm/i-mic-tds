@@ -65,10 +65,10 @@ module IMICTDS
           name: @name,
           version: @version,
           uuid: @uuid,
-          authors: [ "Human" ],
+          authors: @authors,
           grid_size: @grid_size,
-          created_at: Time.now.utc.iso8601,
-          updated_at: Time.now.utc.iso8601
+          created_at: @created_at,
+          updated_at: @updated_at
         },
         play_space: @play_space,
         shapes: @shapes,

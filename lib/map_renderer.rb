@@ -61,7 +61,7 @@ module IMICTDS
         )
       end
 
-      return if polygon.border_size.zero? || polygon.points_count < 2
+      return if polygon.border_thickness.zero? || polygon.points_count < 2
 
       # TODO: Draw polygon border (using rects so that it can have thickness)
       anchor_point = polygon.points.first

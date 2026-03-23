@@ -48,10 +48,8 @@ Example:
   ],
   "color": 2284991026,
   "texture": "sand.png",
-  "border": {
-    "thickness": 2,
-    "color": 2855416370
-  }
+  "border_color": 2855416370,
+  "border_thickness": 2
 }
 ```
 

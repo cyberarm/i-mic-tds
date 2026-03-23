@@ -122,7 +122,7 @@ module IMICTDS
           )
 
           @polygon = Polygon.new(
-            [
+            points: [
               CyberarmEngine::Vector.new(window.width / 2 - 100, window.height / 2 - 100),
               CyberarmEngine::Vector.new(window.width / 2, window.height / 2 - 100),
               CyberarmEngine::Vector.new(window.width / 2, window.height / 2 - 50),
@@ -130,10 +130,10 @@ module IMICTDS
               CyberarmEngine::Vector.new(window.width / 2 + 100, window.height / 2 + 100),
               CyberarmEngine::Vector.new(window.width / 2 - 100, window.height / 2 - 100)
             ],
-            121,
-            Gosu::Color.new(0xaa_aaaaaa),
-            Gosu::Color::GREEN,
-            4
+            z: 121,
+            color: Gosu::Color.new(0xaa_aaaaaa),
+            border_color: Gosu::Color::GREEN,
+            border_thickness: 4
           )
         end
 
