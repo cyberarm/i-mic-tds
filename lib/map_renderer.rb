@@ -76,7 +76,7 @@ module IMICTDS
                                                   t)
                   polygon.color
                 else
-                  polygon.debug_colors[i]
+                  Polygon::DEBUG_COLORS[i]
                 end
 
         Gosu.draw_triangle(

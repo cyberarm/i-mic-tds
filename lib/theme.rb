@@ -43,6 +43,17 @@ module IMICTDS
     Handle: {
       width: 48,
       min_width: nil
+    },
+    EditLine: {
+      background: 0xff_c75e61,
+
+      hover: {
+        background: 0xff_B23E41,
+      },
+
+      active: {
+        background: 0xff_B23E41
+      },
     }
   }
 end

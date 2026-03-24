@@ -1,18 +1,33 @@
 require_relative "../tool"
-require_relative "../tools/polygon"
-require_relative "../tools/prefab"
+require_relative "../tools/select_tool"
+require_relative "../tools/shape_tool"
+require_relative "../tools/prefab_tool"
 
 require_relative "../command"
-require_relative "../commands/polygon"
-require_relative "../commands/polygon_point"
-require_relative "../commands/prefab"
+require_relative "../commands/shape_command"
+require_relative "../commands/polygon_point_command"
+require_relative "../commands/prefab_command"
 
 module IMICTDS
   module MapEditor
     class States
       class Editor < CyberarmEngine::GuiState
+        attr_reader :active_item
+
         def setup
           theme(THEME)
+
+          @editor_history = []
+
+          @map = Map.new
+          @map.edit_mode = true
+          @map.offset = CyberarmEngine::Vector.new(
+            @map.map_size / 2 - window.width / 2,
+            @map.map_size / 2 - window.height / 2
+          )
+
+          @tool = Tool::SelectTool
+          @active_item = nil
 
           # t = IMICTDS.milliseconds
           # @server = IMICTDS::Networking::Server.new(host: "localhost", port: 56789, channels: 8, map: nil, game_mode: :edit)
@@ -74,10 +89,10 @@ module IMICTDS
 
             @map_area_container = flow(fill: true, height: 1.0, padding: 4) do
               @map_position_label = tagline "", width: 128
-              @map_tool_label = tagline "Tool: Apple"
+              @map_tool_label = tagline "Tool: #{@tool.name}"
             end
 
-            # Right Panel: Entity Editor
+            # Right Panel: Editor Panel
             @editor_panel = stack(max_width: 384, width: 1.0, height: 1.0, background: 0xdd_b5835a, border_thickness_left: 2,
                   border_color: 0xaa_252525) do
               banner "Object Editor", width: 1.0, text_align: :center, margin_top: 32
@@ -97,13 +112,6 @@ module IMICTDS
               end
             end
           end
-
-          @map = Map.new
-          @map.edit_mode = true
-          @map.offset = CyberarmEngine::Vector.new(
-            @map.map_size / 2 - window.width / 2,
-            @map.map_size / 2 - window.height / 2
-          )
 
           @polygon = Polygon.new(
             points: [
@@ -201,8 +209,10 @@ module IMICTDS
                 @map.map_size / 2 - window.height / 2
               )
             when Gosu::KB_ESCAPE
-              @tool = nil
+              set_tool(Tool::Select)
             end
+
+            @tool.button_down(id, @map, self)
           end
 
           super
@@ -218,9 +228,38 @@ module IMICTDS
             when Gosu::MS_MIDDLE
               @map.drag_start = nil
             end
+
+            @tool.button_up(id, @map, self)
           end
 
           super
+        end
+
+        def set_tool(klass)
+          @map_tool_label.value = "Tool: #{klass.name}"
+          @tool = klass
+        end
+
+        def add_command(klass, hash = {})
+          @editor_history << klass.new(hash)
+        end
+
+        def create_shape
+          # wall clock time in seconds + runtime monotonic time
+          shape_id = Time.now.utc.to_i + IMICTDS.milliseconds
+
+          shape = Shape.new
+          shape.id = shape_id
+          shape.name = "UnnamedShape-#{shape_id}"
+
+          @map.shapes << shape
+          @active_item = shape
+
+          add_command(Command::ShapeCommand, { id: shape.id, name: shape.name })
+          pp @editor_history
+          pp shape
+
+          shape
         end
 
         def mouse_near?(x, y, dist)
@@ -239,7 +278,11 @@ module IMICTDS
         def tree_shapes
           flow(width: 1.0, height: 40, border_thickness_bottom: 2, border_color: 0xaa_252525, padding: 4) do
             para "Shapes: Designate the play space", fill: true
-            button get_image("#{ROOT_PATH}/assets/ui_icons/plus.png"), image_height: 1.0, min_width: nil, tip: "Create shape"
+            button get_image("#{ROOT_PATH}/assets/ui_icons/plus.png"), image_height: 1.0, min_width: nil, tip: "Create shape" do
+              set_tool(Tool::ShapeTool)
+              shape = create_shape
+              @editor_panel.clear { panel_shape(shape) }
+            end
           end
           stack(width: 1.0, fill: true, scroll: true) do
             10.times do |i|
@@ -303,13 +346,29 @@ module IMICTDS
           end
         end
 
-        def panel_shape
+        def panel_shape(shape)
+          banner "Shape Editor", width: 1.0, text_align: :center, margin_top: 32
+          title "Shape: #{format("0x%010X", shape.id)}", width: 1.0, text_align: :center
+          stack(width: 1.0, fill: true, border_thickness: 2, border_color: 0xaa_252525, margin: 32,
+               margin_top: 0, padding: 4, scroll: true) do
+            caption "Name", width: 1.0, text_align: :center
+            edit_line shape.name, width: 1.0, tip: "Shape name"
+
+            caption "Color", width: 1.0, text_align: :center
+            list_box items: ["Red", "Green", "Blue"], width: 1.0
+
+            caption "Layer", width: 1.0, text_align: :center
+            list_box items: ["Background", "Ground", "Overlay"], width: 1.0
+
+            caption "Collidable?", width: 1.0, text_align: :center
+            toggle_button min_width: nil, image_height: 28
+          end
         end
 
-        def panel_prefab
+        def panel_prefab(prefab)
         end
 
-        def panel_entity
+        def panel_entity(entity)
         end
       end
     end

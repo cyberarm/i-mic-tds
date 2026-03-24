@@ -1,7 +1,7 @@
 module IMICTDS
   module MapEditor
     class Command
-      class PlacePrefab < Command
+      class PrefabCommand < Command
       end
     end
   end

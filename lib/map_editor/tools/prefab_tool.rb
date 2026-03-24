@@ -1,8 +1,8 @@
 module IMICTDS
   module MapEditor
     class Tool
-      # Create and edit polygons on the map
-      class Polygon < Tool
+      # Place prefabs on ta map
+      class PrefabTool < Tool
       end
     end
   end

@@ -1,7 +1,7 @@
 module IMICTDS
   module MapEditor
     class Command
-      class PolygonPoint < Command
+      class ShapeCommand < Command
       end
     end
   end

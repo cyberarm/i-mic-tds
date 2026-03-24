@@ -1,6 +1,11 @@
 module IMICTDS
   class Polygon
-    attr_reader :points, :points_count, :triangles, :debug_colors
+    DEBUG_COLORS = 256.times.to_a.map do
+      Gosu::Color.new(200, rand(100..255), rand(100..255), rand(100..255))
+    end
+
+    attr_reader :points, :points_count, :triangles
+    attr_writer :triangulated
     attr_accessor :color, :border_color, :border_thickness, :z
 
     def initialize(points:, z: 0, color: Gosu::Color::WHITE, border_color: Gosu::Color::NONE,
@@ -15,10 +20,6 @@ module IMICTDS
 
       @triangulated = false
       @points_count = @points.size
-
-      @debug_colors = 256.times.to_a.map do
-        Gosu::Color.new(200, rand(100..255), rand(100..255), rand(100..255))
-      end
     end
 
     # Ear-Clipping Triangulation / Two Ear Theorem
