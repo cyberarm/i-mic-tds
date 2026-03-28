@@ -86,5 +86,12 @@ module IMICTDS
     def transform_point(vector)
       vector + @offset * @zoom
     end
+
+    def grid_point(vector)
+      CyberarmEngine::Vector.new(
+        (vector.x / @grid_size).round * @grid_size,
+        (vector.y / @grid_size).round * @grid_size
+      )
+    end
   end
 end

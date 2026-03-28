@@ -12,7 +12,7 @@ module IMICTDS
   module MapEditor
     class States
       class Editor < CyberarmEngine::GuiState
-        attr_reader :active_item
+        attr_reader :active_item, :tool
 
         def setup
           theme(THEME)
@@ -209,7 +209,8 @@ module IMICTDS
                 @map.map_size / 2 - window.height / 2
               )
             when Gosu::KB_ESCAPE
-              set_tool(Tool::Select)
+              set_tool(Tool::SelectTool)
+              @active_item = nil
             end
 
             @tool.button_down(id, @map, self)
