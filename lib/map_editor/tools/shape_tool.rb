@@ -14,7 +14,7 @@ module IMICTDS
           Gosu.draw_line(pt.x, pt.y, Gosu::Color::BLACK, v.x, v.y, Gosu::Color::BLACK, 100) if pt
 
           dot_color = can_place_point?(v, context) ? 0xff_ffffff : 0xff_aa2200
-          IMICTDS::MapRenderer::GRID_DOT.draw_rot(v.x, v.y, 100, 0, 0.5, 0.5, 1, 1, dot_color)
+          IMICTDS::MapRenderer::GRID_DOT.draw_rot(v.x, v.y, 100, 0, 0.5, 0.5, 1 / map.zoom, 1 / map.zoom, dot_color)
         end
 
         def self.button_down(id, map, context)

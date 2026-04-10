@@ -178,12 +178,15 @@ module IMICTDS
           if @map.drag_start
             delta = @map.drag_start - CyberarmEngine::Vector.new(window.mouse_x, window.mouse_y)
 
-            @map.offset += delta
+            @map.offset += delta / @map.zoom
 
             @map.drag_start -= delta
           end
 
-          @map_position_label.value = format("X: %0.2f\nY: %0.2f\nZoom: %0.2f", @map.offset.x, @map.offset.y, @map.zoom)
+          mouse_point = @tool.mouse_point(@map, self)
+
+          @map_position_label.value = format("X: %0.2f\nY: %0.2f\nZoom: %0.2f\nGrid X: %d\nGrid Y: %d",
+            @map.offset.x, @map.offset.y, @map.zoom, mouse_point.x, mouse_point.y)
 
           super
         end
@@ -192,11 +195,9 @@ module IMICTDS
           if @map_area_container.hit?(window.mouse_x, window.mouse_y)
             case id
             when Gosu::MS_WHEEL_UP
-              @map.zoom += @map.zoom_step
-              @map.zoom = @map.max_zoom if @map.zoom > @map.max_zoom
+              apply_zoom(@map.zoom_step)
             when Gosu::MS_WHEEL_DOWN
-              @map.zoom -= @map.zoom_step
-              @map.zoom = @map.min_zoom if @map.zoom < @map.min_zoom
+              apply_zoom(-@map.zoom_step)
             when Gosu::MS_RIGHT
               if shift_down?
                 @map.drag_start = CyberarmEngine::Vector.new(window.mouse_x, window.mouse_y)
@@ -220,20 +221,26 @@ module IMICTDS
         end
 
         def button_up(id)
-          if @map_area_container.hit?(window.mouse_x, window.mouse_y)
-            case id
-            when Gosu::MS_RIGHT
-              if shift_down?
-                @map.drag_start = nil
-              end
-            when Gosu::MS_MIDDLE
+          case id
+          when Gosu::MS_RIGHT
+            if shift_down?
               @map.drag_start = nil
             end
-
-            @tool.button_up(id, @map, self)
+          when Gosu::MS_MIDDLE
+            @map.drag_start = nil
           end
 
+          @tool.button_up(id, @map, self) if @map_area_container.hit?(window.mouse_x, window.mouse_y)
+
           super
+        end
+
+        def apply_zoom(n)
+          # old_zoom = @map.zoom
+          @map.zoom += n
+
+          @map.zoom = @map.max_zoom if @map.zoom > @map.max_zoom
+          @map.zoom = @map.min_zoom if @map.zoom < @map.min_zoom
         end
 
         def set_tool(klass)
